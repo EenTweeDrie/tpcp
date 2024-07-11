@@ -72,7 +72,9 @@
 
 ### Примеры расчетов и визуализации
 
-![Taxation parameters of the tree](about\comparing.png)
+<p align="center">
+  <img src="about\comparing.png">
+</p>
 
 |                  | TPCP | 3DForest     |
 |------------------|------|--------------|
