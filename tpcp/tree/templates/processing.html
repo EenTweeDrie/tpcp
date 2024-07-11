@@ -1,0 +1,105 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+<head>
+  <link rel="stylesheet" href={% static "css/preloader.css" %}>
+  <link rel="stylesheet" href={% static "css/login.css" %}>
+</head>
+<body>
+  <div class="preloader">
+    <div class="preloader__row">
+      <div class="preloader__item"></div>
+      <div class="preloader__item"></div>
+    </div>
+  </div>
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            {% autoescape off %}
+            {{ plot_div }}
+            {% endautoescape %}
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">{{ name }} <h6><a href="{{ docfile_url }}">{{ name }} ({{docfile_size|filesizeformat}})</a></h6></h1>
+              <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Диаметр = </small>{{ D }}<small class="text-muted fw-light"> cм /</small> {{ DH }}<small class="text-muted fw-light"> cм</small></small></h1>
+              <!-- <ul class="list-unstyled mt-3 mb-4">
+                <li>Диаметр на высоте груди (1,25 - 1,35 м)</li>
+              </ul> -->
+              <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Высота = </small>{{ H|floatformat:3 }}<small class="text-muted fw-light"> м</small></h1>
+              <!-- <ul class="list-unstyled mt-3 mb-4">
+                <li>Высота дерева</li>
+              </ul> -->
+              <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Длина = </small>{{ L|floatformat:3 }}<small class="text-muted fw-light"> м</small></h1>
+              <!-- <ul class="list-unstyled mt-3 mb-4">
+                <li>Длина дерева (под наклоном)</li>
+              </ul> -->
+              <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Высота кроны = </small>{{ CH|floatformat:3 }}<small class="text-muted fw-light"> м</small></small></h1>
+              <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Объем кроны = </small>{{ CV|floatformat:3 }}<small class="text-muted fw-light"> куб. м</small></small></h1>
+              <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Площадь кроны = </small>{{ CS|floatformat:3 }}<small class="text-muted fw-light"> кв. м</small></small></h1>
+              <br>
+
+              <h3 class="card-title pricing-card-title"><small class="text-muted fw-light">Расчеты произведены со следующими параметрами:</small></h3>
+
+                <!-- <ul class="list-unstyled mt-3 mb-4">
+                  <li>Радиус окрестности ближайших точек: Eps = <b>{{ eps }}</b></li>
+                  <li>Eps = <b>{{ eps }}</b></li>
+                </ul>
+              
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>Минимальное количество соседей для кластера: MinPts = <b>{{ minpts }}</b></li>
+                  <li>MinPts = <b>{{ minpts }}</b></li>
+                </ul>
+                
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>Количество итераций алгоритма OPTICS: Iter = <b>{{ iter }}</b></li>
+                  <li>Iter = <b>{{ iter }}</b></li>
+                </ul> -->
+                <h4 class="card-title pricing-card-title"><small class="text-muted fw-light">Радиус окрестности ближайших точек <br>Eps = </small>{{ eps }}</h4>
+                <!-- <ul class="list-unstyled mt-3 mb-4">
+                  <li>Радиус окрестности ближайших точек</li>
+                </ul> -->
+                <h4 class="card-title pricing-card-title"><small class="text-muted fw-light">Минимальное количество соседей для кластера <br>MinPts = </small>{{ minpts }}</h4>
+                <!-- <ul class="list-unstyled mt-3 mb-4">
+                  <li>Минимальное количество соседей для кластера</li>
+                </ul> -->
+                <h4 class="card-title pricing-card-title"><small class="text-muted fw-light">Количество итераций алгоритма OPTICS <br>Iter = </small>{{ iter }}</h4>
+                <!-- <ul class="list-unstyled mt-3 mb-4">
+                  <li>Количество итераций алгоритма OPTICS</li>
+                </ul> -->
+                <h4 class="card-title pricing-card-title"><small class="text-muted fw-light">Учет нормалей в сегментации <br>Normals = </small>{{ onnormalsz }}</h4>
+                <!-- <ul class="list-unstyled mt-3 mb-4">
+                  <li>Учет нормалей в сегментации</li>
+                </ul> -->
+               
+                <button type="button" class="w-75 btn btn-lg btn-outline-primary" onclick="window.location.href = document.referrer">Вернуться</button> 
+               </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.onload = function () {
+        document.body.classList.add('loaded_hiding');
+        window.setTimeout(function () {
+          document.body.classList.add('loaded');
+          document.body.classList.remove('loaded_hiding');
+        }, 500);
+      }
+      function alerted(){
+        document.body.classList.add('load');
+      }
+    </script>
+
+</body>
+
+<!-- <script>
+let sidebar = document.querySelector(".sidebar");
+let closeBtn = document.querySelector("#btn");
+let searchBtn = document.querySelector(".bx-search");
+sidebar.classList.toggle("open");
+</script> -->
+
+{% endblock %}

@@ -1,0 +1,439 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+   <style>
+    /* Google Font Link */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap');
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Montserrat" , sans-serif;
+    }
+    /* body{
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #7d2ae8;
+      padding: 30px;
+    } */
+    .container{
+      position: relative;
+      max-width: 850px;
+      width: 100%;
+      background: #fff;
+      padding: 40px 30px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      perspective: 2700px;
+    }
+    .container .cover{
+      position: absolute;
+      top: 0;
+      left: 50%;
+      height: 100%;
+      width: 50%;
+      z-index: 98;
+      transition: all 1s ease;
+      transform-origin: left;
+      transform-style: preserve-3d;
+    }
+    .container #flip:checked ~ .cover{
+      transform: rotateY(-180deg);
+    }
+    .container .cover .front,
+    .container .cover .back{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+    }
+    .cover .back{
+      transform: rotateY(180deg);
+      backface-visibility: hidden;
+    }
+    .container .cover::before,
+    .container .cover::after{
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background: #7d2ae8;
+      opacity: 0.25;
+      z-index: 12;
+    }
+    .container .cover::after{
+      opacity: 0.3;
+      transform: rotateY(180deg);
+      backface-visibility: hidden;
+    }
+    .container .cover img{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      z-index: 10;
+    }
+    .container .cover .text{
+      position: absolute;
+      z-index: 130;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .cover .text .text-1,
+    .cover .text .text-2{
+      font-size: 26px;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+    }
+    .cover .text .text-2{
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .container .forms{
+      height: 100%;
+      width: 100%;
+      background: #fff;
+    }
+    .container .form-content{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-content .login-form,
+    .form-content .signup-form{
+      width: calc(100% / 2 - 25px);
+    }
+    .forms .form-content .title{
+      position: relative;
+      font-size: 24px;
+      font-weight: 500;
+      color: #333;
+    }
+    .forms .form-content .title:before{
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 25px;
+      background: #7d2ae8;
+    }
+    .forms .signup-form  .title:before{
+      width: 20px;
+    }
+    .forms .form-content .input-boxes{
+      margin-top: 30px;
+    }
+    .forms .form-content .input-box{
+      display: flex;
+      align-items: center;
+      height: 50px;
+      width: 100%;
+      margin: 10px 0;
+      position: relative;
+    }
+    .form-content .input-box input{
+      height: 100%;
+      width: 100%;
+      outline: none;
+      border: none;
+      padding: 0 30px;
+      font-size: 16px;
+      font-weight: 500;
+      border-bottom: 2px solid rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    .form-content .input-box input:focus,
+    .form-content .input-box input:valid{
+      border-color: #7d2ae8;
+    }
+    .form-content .input-box i{
+      position: absolute;
+      color: #7d2ae8;
+      font-size: 17px;
+    }
+    .forms .form-content .text{
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    .forms .form-content .text a{
+      text-decoration: none;
+    }
+    .forms .form-content .text a:hover{
+      text-decoration: underline;
+    }
+    .forms .form-content .button{
+      color: #fff;
+      margin-top: 40px;
+    }
+    .forms .form-content .button input{
+      color: #fff;
+      background: #7d2ae8;
+      border-radius: 6px;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+    .forms .form-content .button input:hover{
+      background: #5b13b9;
+    }
+    .forms .form-content label{
+      color: #5b13b9;
+      cursor: pointer;
+    }
+    .forms .form-content label:hover{
+      text-decoration: underline;
+    }
+    .forms .form-content .login-text,
+    .forms .form-content .sign-up-text{
+      text-align: center;
+      margin-top: 25px;
+    }
+    .container #flip{
+      display: none;
+    }
+
+
+    .example-2 .btn-tertiary{
+      color:#555;
+      padding:0;
+      line-height:45px;
+      width:100%;
+      margin:auto;
+      display:block;
+      text-decoration: none;
+      border:2px solid #555
+      
+    }
+    .example-2 .btn-tertiary:hover,.example-2 .btn-tertiary:focus{
+      color:#7d2ae8;text-decoration: none;
+      border-color:#7d2ae8
+    }
+    .example-2 .input-file{
+      width:.1px;text-decoration: none;
+      height:.1px;
+      opacity:0;
+      overflow:hidden;
+      position:absolute;
+      z-index:-1
+    }
+    .example-2 .input-file + .js-labelFile{
+      overflow:hidden;text-decoration: none;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      padding:0 10px;
+      cursor:pointer
+      
+    }
+    .example-2 .input-file + .js-labelFile .icon:before{text-decoration: none;
+      content:"\f093"
+    }
+    .example-2 .input-file + .js-labelFile.has-file .icon:before{text-decoration: none;
+      content:"\f00c";
+      color:#5AAC7B
+    }
+
+    @media (max-width: 730px) {
+      .container .cover{
+        display: none;
+      }
+      .form-content .login-form,
+      .form-content .signup-form{
+        width: 100%;
+      }
+      .form-content .signup-form{
+        display: none;
+      }
+      .container #flip:checked ~ .forms .signup-form{
+        display: block;
+      }
+      .container #flip:checked ~ .forms .login-form{
+        display: none;
+      }
+    }
+
+
+   </style>
+  
+  
+  </head>
+<body>
+  <br><br><br><br><br><br><br><br><br>
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src={% static "images/2.png" %}>
+      </div>
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Загрузить файл дерева</div>
+            <div class="input-boxes">
+                <form action="{% url "upload" %}" method="post" enctype="multipart/form-data" id="uploadForm">
+                    {% csrf_token %}
+                    <!-- {{ form.docfile }}
+
+
+                    <div class="input-box", required=True>
+                      <input type="text" name="name" class="input-box" placeholder="Имя файла дерева">
+                    </div> -->
+                    <br>
+                    <div class="example-2">
+                      <div class="form-group">
+                        <input type="file" name="docfile" id="file" class="input-file" onchange=showFile(this)>
+                        <label for="file" class="btn btn-tertiary js-labelFile">
+                          <i class="icon fa fa-check"></i>
+                          <span class="js-fileName">Загрузить файл</span>
+                        </label>
+                      </div>
+                     </div>
+
+
+                    
+                    <div class="input-box" , required=True>
+                        <!-- <i class="fas fa-envelope"></i> -->
+                        {{ form.name }}
+                    </div>
+                    <!-- <input type="text" name="tree_file_size" id='file_size' hidden><br> -->
+                    <!-- <div class="text sign-up-text" id="2">dd</div> -->
+                    <span class="text-2" id="2"></span><br>
+                    
+
+                    <div class="button input-box">
+                        <input type="submit" value="Загрузить" id="1">
+                      </div>
+                </form>
+              <div class="text sign-up-text"><label for="flip">Справка</label></div>
+            </div>
+      </div>
+      <div class="signup-form">
+        <div class="title">Справка</div>
+        <br><br><br><br>
+        <span class="text-2">Система принимает файлы, удовлетворяющие следующим условиям:</span>
+          <br><br>
+          <span class="text-2">Файлы имеют расширения .pcd и .txt</span>
+          <br><br>
+          <span class="text-2">Файлы имеют размер не более 50 Мб</span>
+          <br><br><br><br>
+
+          <div class="text sign-up-text"><label for="flip">Скрыть</label></div>
+          </div>
+     
+  </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<!-- <script>
+    var filename = document.getElementById("file").value;
+    var ev = document.getElementById("evaluate");
+    evaluate.onclick= function() {
+    var res = filename;
+    document.getElementById("result").value = res;
+    }
+</script> -->
+
+<script>
+    function showFile(input) {
+      let file = input.files[0];
+    //   alert(`File name: ${file.name}`); // например, my.png
+    //   alert(`Last modified: ${file.lastModified}`); // например, 1552830408824
+      document.getElementById("result").value = file.name;
+      // document.getElementById("file_size").value = Math.ceil(file.size/1024);
+    }
+</script>
+
+<!-- <script>
+$('input[name=photo]')[0].bind('change', function() {
+  var size = this.files[0].size; // размер в байтах
+  var name = this.files[0].name; // имя файла
+
+  if(25000000 < size){
+     // Файл больше 25 МБ
+  }
+
+  var fileExtension = ['pcd', 'txt']; // допустимые типы файлов
+  if ($.inArray(name.split('.').pop().toLowerCase(), fileExtension) == -1) {
+     // у файла неверный тип (расширение)
+  }
+
+  // После прохождения всех проверок
+  // можно отправлять файл через AJAX на сайт.
+  // Но если проверки не пройдены, то надо
+  // показать сообщения об ошибках пользователю
+});
+</script> -->
+
+<script>
+ (function() {
+   
+   'use strict';
+  
+   $('.input-file').each(function() {
+     var $input = $(this),
+         $label = $input.next('.js-labelFile'),
+         labelVal = $label.html();
+      
+    $input.on('change', function(element) {
+      var fileName = '';
+      if (element.target.value) fileName = element.target.value.split('\\').pop();
+      fileName ? $label.addClass('has-file').find('.js-fileName').html(fileName) : $label.removeClass('has-file').html(labelVal);
+
+      var fileExtension = ['pcd', 'txt'];
+      var size = this.files[0].size; // размер в байтах
+      var name = this.files[0].name; // имя файла
+
+      if(50000000 < size){
+        document.getElementById('1').disabled = true;
+        document.getElementById('2').innerHTML = "Файл больше 25 Мбайт";
+        document.getElementById("1").style.color = "red";
+      }
+      else if ($.inArray(name.split('.').pop().toLowerCase(), fileExtension) == -1)
+        {
+          document.getElementById('1').disabled = true;
+          document.getElementById('2').innerHTML = "Файл имеет неправильно расширение";
+          document.getElementById("1").style.color = "red";
+        }
+      else {
+        document.getElementById('1').disabled = false; 
+        document.getElementById("1").style.color = "white";
+        document.getElementById('2').innerHTML = "";
+      }
+    });
+   });
+  
+ })();
+</script>
+<!-- <script>
+  $(document).ready(function () {
+            // отслеживаем событие отправки формы
+            $('#uploadForm').submit(function () {
+                // создаем AJAX-вызов
+                $.ajax({
+                    data: $(this).serialize(), // получаем данные формы
+                    type: $(this).attr('method'), // GET или POST
+                });
+                return false;
+            });
+        })
+</script> -->
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+
+<body>
+    <div class="container">
+        <br><br>
+        <h2><div class="col text-center">Сводки деревьев</div></h2>
+        <br><br>
+        
+
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active">
+                Все сводки таксационных параметров деревьев:
+            </a>
+            {% if logs %}
+            {% for log in logs.all reversed %}
+            <a href="{{ log.logfile.url }}" class="list-group-item list-group-item-action">{{ log.log_name }} ({{ log.logfile.size|filesizeformat }})</a>
+            {% endfor %}
+            {% else %}
+            <a href="#" class="list-group-item list-group-item-action active">
+                No logs.
+            </a>
+            {% endif %}
+          </div>
+    </div>
+</body>
+ 
+
+{% endblock %}

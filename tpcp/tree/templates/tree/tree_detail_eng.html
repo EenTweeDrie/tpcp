@@ -1,0 +1,144 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+{% load l10n %}
+
+<!-- {% autoescape off %}
+{{ plot_div }}
+{% endautoescape %}
+<div class="text">{{ name }}</div>
+<div class="text"><a href="{{ docfile_url }}">{{ docfile_name }}</a></div>
+<div class="text">L={{ L|floatformat:3 }}</div>
+<div class="text">H={{ H|floatformat:3 }}</div>
+<div class="text">D={{ D|floatformat:3 }}</div>
+<div class="col">
+    <button type="button" class="btn btn-lg btn-outline-primary" onclick="window.location.href = 'treeprocessing/{{tree.id}}';">Рассчитать</button>
+  </div> -->
+<head><link rel="stylesheet" href={% static "css/preloader.css" %}>
+<style>
+   .form-check .form-check-input{float:left;margin-left:-1.5em}.form-check-input{width:1em;height:1em;margin-top:.25em;vertical-align:top;background-color:#fff;background-repeat:no-repeat;background-position:center;background-size:contain;border:1px solid rgba(0,0,0,.25);-webkit-appearance:none;-moz-appearance:none;appearance:none;-webkit-print-color-adjust:exact;color-adjust:exact}.form-check-input[type=checkbox]{border-radius:.25em}.form-check-input[type=radio]{border-radius:50%}.form-check-input:active{filter:brightness(90%)}.form-check-input:focus{border-color:#86b7fe;outline:0;box-shadow:0 0 0 .25rem rgba(13,110,253,.25)}.form-check-input:checked{background-color:#0d6efd;border-color:#0d6efd}.form-check-input:checked[type=checkbox]{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e")}.form-check-input:checked[type=radio]{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e")}.form-check-input[type=checkbox]:indeterminate{background-color:#0d6efd;border-color:#0d6efd;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e")}.form-check-input:disabled{pointer-events:none;filter:none;opacity:.5}.form-check-input:disabled~.form-check-label,.form-check-input[disabled]~.form-check-label{opacity:.5}.form-switch{padding-left:2.5em}.form-switch .form-check-input{width:2em;margin-left:-2.5em;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");background-position:left center;border-radius:2em;transition:background-position .15s ease-in-out}@media (prefers-reduced-motion:reduce){.form-switch .form-check-input{transition:none}}.form-switch .form-check-input:focus{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%2386b7fe'/%3e%3c/svg%3e")}.form-switch .form-check-input:checked{background-position:right center;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e")}
+</style></head>
+<body>
+  <div class="preloader">
+    <div class="preloader__row">
+      <div class="preloader__item"></div>
+      <div class="preloader__item"></div>
+    </div>
+  </div>
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            {% autoescape off %}
+            {{ plot_div }}
+            {% endautoescape %}
+          </div>
+          <div class="col">
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">01.pcd </h1>
+                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">DBH (LS/HLS) = </small>{{ D }}<small class="text-muted fw-light"> cm /</small> {{ DH }}<small class="text-muted fw-light"> cm</small></small></h1>
+                <!-- <ul class="list-unstyled mt-3 mb-4">
+                  <li>Диаметр на высоте груди (1,25 - 1,35 м)</li>
+                </ul> -->
+                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Height (H) = </small>{{ H|floatformat:3 }}<small class="text-muted fw-light"> m</small></small></h1>
+                <!-- <ul class="list-unstyled mt-3 mb-4">
+                  <li>Высота дерева</li>
+                </ul> -->
+                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Length (L) = </small>{{ L|floatformat:3 }}<small class="text-muted fw-light"> m</small></small></h1>
+                <!-- <ul class="list-unstyled mt-3 mb-4">
+                  <li>Длина дерева (под наклоном)</li>
+                </ul> -->
+                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Height to crown base (HCB) = </small>{{ CH|floatformat:3 }}<small class="text-muted fw-light"> m</small></small></h1>
+                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Area of crown (ACCH) = </small>{{ CV|floatformat:3 }}<small class="text-muted fw-light"> m2</small></small></h1>
+                <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">Volume of crown (VCCH) = </small>{{ CS|floatformat:3 }}<small class="text-muted fw-light"> m3</small></small></h1>
+                <br>
+                <h3 class="card-title pricing-card-title"><small class="text-muted fw-light">Parameters for calculation:</small></h3>
+
+                <form method='POST' id="treeForm">
+                  {% csrf_token %}
+                  <ul class="list-unstyled mt-3 mb-1">
+                    <li>The radius of the neighborhood of the nearest points:</li>
+                  </ul>
+                  <div class="w-75 input-group ">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Eps</span>
+                    </div>
+                    <input type="text" class="form-control" name="eps" id="eps" max="0.75" value="{{ eps }}" onchange="rangeinput1.value = eps.value" />
+                    <input type="range" oninput="eps.value = rangeinput1.value" class="form-control-range slider" type="range" min="0.05" max="0.75" value="{{ eps|unlocalize }}" id="rangeinput1" step="0.05" onchange="eps.value = rangeinput1.value" >
+                  </div>
+                  <ul class="list-unstyled mt-3 mb-1">
+                    <li>Minimum number of neighbors for a cluster:</li>
+                  </ul>
+                  <div class="w-75 input-group ">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">MinPts</span>
+                    </div>
+                    <input type="text" class="form-control" name="minpts" id="minpts" max="500" value="{{ minpts }}" onchange="rangeinput2.value = minpts.value" />
+                    <input type="range" oninput="minpts.value = rangeinput2.value" class="form-control-range slider" type="range" min="25" max="500" value="{{ minpts }}" id="rangeinput2" step="25" onchange="minpts.value = rangeinput2.value" >
+                  </div>
+                  <ul class="list-unstyled mt-3 mb-1">
+                    <li>Number of iterations of the OPTICS algorithm:</li>
+                  </ul>
+                  <div class="w-75 input-group ">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Iter</span>
+                    </div>
+                    <input type="text" class="form-control" name="iter" id="iter" max="3" value="{{ iter }}" onchange="rangeinput3.value = iter.value" />
+                    <input type="range" oninput="iter.value = rangeinput3.value" class="form-control-range slider" type="range" min="0" max="3" value="{{ iter }}" id="rangeinput3" step="1" onchange="iter.value = rangeinput3.value" >
+                  </div>
+                  <br>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" name="onnormalsz" id="flexSwitchCheckDefault" checked>
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Accounting for normals in segmentation</label>
+                  </div>
+                  <br> 
+                  <button type="submit" id='target' class="w-75 btn btn-lg btn-outline-primary" hidden>Сохранить</button> 
+                  <button type="button" class="w-75 btn btn-lg btn-outline-primary" onclick="alerted();">Calculate</button> 
+                  </form>
+                <!-- <button type="button" class="w-75 btn btn-lg btn-outline-primary" onclick="alerted(); window.location.href = 'treeprocessing/{{tree_id}}';">Рассчитать</button>  -->
+                  
+                  
+
+                <!-- <button type="button" class="w-75 btn btn-lg btn-outline-primary" onclick="alerted(); window.location.href = 'treeprocessing/{{tree_id}}';">Рассчитать</button> -->
+                <!-- <button type="button" class="w-75 btn btn-lg btn-outline-primary" onclick="alerted();">Рассчитать</button> -->
+                 </div>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      window.onload = function () {
+        document.body.classList.add('loaded_hiding');
+        window.setTimeout(function () {
+          document.body.classList.add('loaded');
+          document.body.classList.remove('loaded_hiding');
+        }, 500);
+      }
+      function alerted(){
+        document.getElementById('target').click();
+        document.body.classList.add('load');
+        setTimeout(function(){
+          window.location.href = 'treeprocessing/{{tree_id}}';
+        }, 3000);
+      }
+    </script>
+    <script>
+      $(document).ready(function () {
+                // отслеживаем событие отправки формы
+                $('#treeForm').submit(function () {
+                    // создаем AJAX-вызов
+                    $.ajax({
+                        data: $(this).serialize(), // получаем данные формы
+                        type: $(this).attr('method'), // GET или POST
+                    });
+                    return false;
+                });
+            })
+    </script>
+
+</body>
+
+
+{% endblock %}

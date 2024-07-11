@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+
+<form method="POST">
+    {% csrf_token %}
+    Расчет
+    
+    <!-- <button type="submit" class="btn btn-lg btn-outline-primary">Рассчитать!</button> -->
+</form> 
+{% autoescape off %}
+{{ plot_div }}
+{% endautoescape %}
+{% endblock %}

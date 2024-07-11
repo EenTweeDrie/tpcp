@@ -1,0 +1,111 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Album example · Bootstrap v5.1</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
+
+    
+
+    <!-- Bootstrap core CSS -->{% load static %}
+    <link rel="stylesheet" href={% static "css/bs3.css" %}>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .scale {
+        display: inline-block; /* Строчно-блочный элемент */
+        overflow: hidden; /* Скрываем всё за контуром */
+      }
+      .scale img {
+        transition: 1s; /* Время эффекта */
+        display: block; /* Убираем небольшой отступ снизу */
+        transform: scale(1);
+      }
+      .scale img:hover {
+        transform: scale(1.5); /* Увеличиваем масштаб */
+      }
+    </style>
+
+    
+  </head>
+  <body>
+
+<main>
+  
+    <div class="container">
+      <br><br>
+      <h2><div class="col text-center">Список деревьев</div></h2>
+      <br><br>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+    {% if tree_list %}
+        {% for tree in tree_list.all%}
+        <div class="col">
+         <div class="card shadow-sm">
+           
+
+          <div class="embed-responsive embed-responsive-4by3">
+              <rect width="100%" height="100%" fill="#55595c"/>
+              <div class="scale"><img alt="Изображение отсутствует" class="card-img-top embed-responsive-item" src="{{ MEDIA_URL }}{{ tree.tree_img_url }}"/></div>
+          </div>
+
+
+            <div class="card-body">
+              <h5 class="card-title">{{ tree.name }}</h5>
+              <p class="card-text">
+                <a>D={{ tree.tree_diameter|floatformat:2}}</a>
+                <a>H={{ tree.tree_height|floatformat:2 }}</a>
+                <a>L={{ tree.tree_length|floatformat:2 }}</a>
+                <a id='file_size1' hidden>{{ tree.docfile.size }}</a>
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{{ tree.get_absolute_url }}" class="btn btn-sm btn-outline-secondary" role="button">Подробнее</a>
+                  <a href="{{ tree.docfile.url }}" class="btn btn-sm btn-outline-secondary" role="button">Скачать</a>
+                </div>
+                <small class="text-muted" id="file_size2">{{ tree.docfile.size|filesizeformat }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+    {% else %}
+            <p>Нет деревьев.</p>
+    {% endif %}
+        </div>
+      </div>
+    </div>
+
+
+</main>
+
+</body>
+
+<script>
+  // alert(document.getElementById("file_size1").value); // например, my.png
+  // document.getElementById("file_size2").value = Math.ceil(document.getElementById("file_size1").value/1024)
+</script>
+
+</html>
+
+{% endblock %}

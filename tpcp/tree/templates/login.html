@@ -1,0 +1,116 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!-- <title> Login and Registration Form in HTML & CSS | CodingLab </title>
+    <link rel="stylesheet" href="style.css"> -->
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static "css/login.css" %}>
+  
+  
+  </head>
+<body>
+  <br><br><br><br><br><br><br>
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src={% static "images/1.png" %}>
+        <div class="text">
+          <span class="text-1">Добро <br>пожаловать!</span>
+          <span class="text-2">или<br><b>Посторонним <br>вход воспрещён</b></span>
+        </div>
+      </div>
+    </div>
+      <div class="cover">
+      <div class="back">
+        <img src={% static "images/4.png" %}>
+        <div class="text">
+          <span class="text-1">Добро <br>пожаловать!</span>
+          <span class="text-2">или<br><b>Посторонним <br>вход воспрещён</b></span>
+        </div>
+      </div>
+    </div>
+   
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Войти</div>
+            <form class="form-signin"  method='POST'  action="{% url 'login' %}">
+
+              <div class="input-boxes">
+                {% csrf_token %}
+                <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  <input type="text" name="username" class="form-styling" placeholder="Введите имя">
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" name="password" class="form-styling" placeholder="Введите пароль">
+                </div>
+                <span class="text-2">{{ form.errors }}</span>
+                <div class="button input-box">
+                  <input type="submit"  value='Войти'>
+                </div>
+                <div class="text sign-up-text">Нет аккаунта? <label for="flip">Зарегистрируйтесь</label></div>
+              </div>
+
+            </form>
+      </div>
+        <div class="signup-form">
+          <div class="title">Регистрация</div>
+          <form class="form-signup" method="POST" action="{% url 'login' %}" >
+
+            <div class="input-boxes">
+              {% csrf_token %}
+
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input class="form-styling" type="text" name="username" placeholder="Введите имя"/> 
+              </div>
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" class="form-styling" placeholder="Введите email">
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password1" class="form-styling" placeholder="Введите пароль">
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password2" class="form-styling" placeholder="Повторите пароль">
+              </div>
+              <!-- <div class="text sign-up-text">{{ form.errors }}</div> -->
+              <span class="text-2">{{ form.errors }}</span>
+                <div class="button input-box">
+                  <input type="submit"  value='Регистрация'>
+              </div>
+<!-- 
+              <label for="username">Имя</label>
+              <input class="form-styling" type="text" name="username" placeholder=""/> 
+              <label for="username">email</label>
+              <input type="email" name="email" class="form-styling">
+              <label for="password">пароль</label>
+              <input type="password" name="password1" class="form-styling">
+              <label for="password">Повторите пароль</label>
+              <input type="password" name="password2" class="form-styling">
+              <button type="submit" value='sign_up'>Регистрация</button>
+              <div class="form-error">{{ form.errors }}</div> -->
+              <div class="text sign-up-text">Уже есть аккаунт? <label for="flip">Войдите</label></div>
+            </div>
+
+          </form>
+    </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+{% endblock %}
